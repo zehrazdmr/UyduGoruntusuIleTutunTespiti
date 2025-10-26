@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitki Türü Sınıflandırma Projesi</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Harici bir CSS dosyası -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE-(PARANTEZ KISMINI SİLEREK KENDİ ANAHTARINIZI GİRMELİSİNİZ)&callback=initMap" async defer></script>
+
+    <style>
+        #map {
+            height: 500px; /* Haritanın yüksekliği */
+            width: 100%; /* Haritanın genişliği */
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        header, footer {
+            text-align: center;
+            padding: 10px;
+            background: #f4f4f4;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Bitki Türü Sınıflandırma Projesi</h1>
+        <p>Uydu görüntüleri ile bitki türlerini sınıflandırma.</p>
+    </header>
+
+    <main>
+        <section id="map-section">
+            <h2>Google Maps ile Konum Seçimi</h2>
+            <div id="map"></div>
+            <div id="selected-location"></div>
+        </section>
+
+        <section id="coordinates-section">
+            <h2>Koordinat Girişi</h2>
+            <label for="latitude">Enlem:</label>
+            <input type="text" id="latitude" aria-label="Enlem">
+            <label for="longitude">Boylam:</label>
+            <input type="text" id="longitude" aria-label="Boylam">
+            <button id="submitCoordinates">Koordinatları Gönder</button>
+        </section>
+    
+        <section id="classification-results">
+            <h2>Sınıflandırma Sonuçları</h2>
+            <div id="resultsDisplay"></div>
+            <button id="classifyButton">Sınıflandır</button>
+        </section>
+    
+        <section id="visualization">
+            <h2>Sonuçların Görselleştirilmesi</h2>
+            <div id="mapDisplay"></div> <!-- Harita veya grafik alanı -->
+        </section>
+    </main>
+    
+    <footer>
+        <p>Proje hakkında daha fazla bilgi için iletişime geçin.</p>
+    </footer>
+
+    <script>
+        // Google Maps haritasını başlatan fonksiyon
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 39.92077, lng: 32.85411 }, // Ankara, Türkiye
+                zoom: 6,
+            });
+
+            const marker = new google.maps.Marker({
+                position: { lat: 39.92077, lng: 32.85411 },
+                map: map,
+                draggable: true, // İşaretçi sürüklenebilir
+            });
+
+            google.maps.event.addListener(marker, 'dragend', function(event) {
+                const lat = event.latLng.lat().toFixed(6);
+                const lng = event.latLng.lng().toFixed(6);
+                document.getElementById("latitude").value = lat;
+                document.getElementById("longitude").value = lng;
+                document.getElementById("selected-location").textContent = `Seçilen Konum: Enlem ${lat}, Boylam ${lng}`;
+            });
+        }
+
+        // Koordinatları işleyen bir fonksiyon
+        document.getElementById("submitCoordinates").addEventListener("click", function() {
+            const lat = document.getElementById("latitude").value;
+            const lng = document.getElementById("longitude").value;
+            if (lat && lng) {
+                alert(`Gönderilen Koordinatlar: Enlem ${lat}, Boylam ${lng}`);
+            } else {
+                alert("Lütfen geçerli koordinatlar girin!");
+            }
+        });
+        document.getElementById("classifyButton").addEventListener("click",function(){
+
+        })
+    </script>
+</body>
+</html>
