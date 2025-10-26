@@ -1,5 +1,5 @@
 import ee
-ee.Initialize(project='ee-fatmazehraozdemir21')
+ee.Initialize(project='YOURKEY')
 
 # Sentinel-2 veri kümesi
 region = ee.Geometry.Point([38.23,38.03])
@@ -157,5 +157,6 @@ def test(lat,lng):
     else:
         print("Bu alana dair bilgi bulunmadı.")
      
+
 
  
